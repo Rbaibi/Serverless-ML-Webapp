@@ -58,4 +58,21 @@ stages:
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       displayName: 'myStep 5 - Upload package'
       artifact: drop
+      
+
+
+- stage: DeployStagingStage
+    displayName: 'Deploy App to Staging Slot'
+    dependsOn: Build
+    jobs:
+      - job:  DeployApp
+        displayName: 'Deploy App'
+        steps:
+
+        - task: AzureWebApp@1
+          inputs:
+              azureSubscription: $(azureServiceConnectionId)
+              appName: $(webAppName)
+              package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip
+
 
