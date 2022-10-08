@@ -43,6 +43,13 @@ stages:
       displayName: 'myStep 4 - Archive files'
       inputs:
         rootFolderOrFile: '$(projectRoot)'
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'myserviceconn123'
+    appType: 'webAppLinux'
+    appName: 'myownuniquewebapp'
+    package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+    runtimeStack: 'PYTHON|3.7'
         includeRootFolder: false
         archiveType: zip
         archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
