@@ -5,12 +5,12 @@
 trigger:
 - main
 
-pool: agent_pool
+pool: myAgentPool
 
 variables:
   
-  azureServiceConnectionId: 'server_conn'
-  webAppName: 'lorenzo-flask-webapp'
+  azureServiceConnectionId: 'myserviceconn123'
+  webAppName: 'myownuniquewebapp'
   environmentName: 'flask-ml-deploy'
   projectRoot: $(System.DefaultWorkingDirectory)
 
@@ -19,7 +19,7 @@ stages:
   displayName: Build stage
   jobs:
   - job: BuildJob
-    pool: agent_pool
+    pool: myAgentPool
     steps:    
     - script: |
         python3.7 -m pip install --upgrade pip
@@ -57,7 +57,7 @@ stages:
   condition: succeeded()
   jobs:
   - deployment: DeploymentJob
-    pool: agent_pool
+    pool: myAgentPool
     environment: $(environmentName)
     strategy:
       runOnce:
